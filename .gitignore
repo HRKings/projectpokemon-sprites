@@ -1,5 +1,4 @@
 node_modules/
-dist/generator/
 dist/test/
+dist/generator/
 generator/*.js
-generator/*.js.map
