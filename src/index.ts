@@ -1,7 +1,9 @@
 import fs from 'fs';
+import path from 'path';
+import { __dirname } from './utils.js';
 import { PokemonSprite } from '@/interfaces/IPokemonSprite';
 
-const generationsFiles = 'dist/src/data/generations/';
+const generationsFiles = path.join(__dirname, 'data/generations/');
 const pokeApiReplaces: Record<string, string> = {
   gmax: 'gigantamax',
   'totem-alola': 'totem',

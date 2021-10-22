@@ -4,12 +4,11 @@
 		"target": "esnext",
 		"strict": true,
 		"importHelpers": true,
-		"moduleResolution": "node",
+		"moduleResolution": "Node",
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
-		"sourceMap": true,
-		"baseUrl": ".",
+		"baseUrl": "./",
 		"paths": {
 			"@/*": [
 				"src/*"

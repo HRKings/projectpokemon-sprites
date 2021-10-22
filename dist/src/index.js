@@ -1,7 +1,7 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
 import fs from 'fs';
-const generationsFiles = 'dist/src/data/generations/';
+import path from 'path';
+import { __dirname } from './utils.js';
+const generationsFiles = path.join(__dirname, 'data/generations/');
 const pokeApiReplaces = {
     gmax: 'gigantamax',
     'totem-alola': 'totem',
@@ -52,4 +52,3 @@ export function fromPokeAPI(pokemonName) {
     }
     return projectPokemonName;
 }
-//# sourceMappingURL=index.js.map

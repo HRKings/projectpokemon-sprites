@@ -4,6 +4,7 @@
   "type": "module",
   "description": "A simple wrapper to get images from Project Pokemon Sprite Index",
   "main": "dist/src/index.js",
+  "types": "src/interfaces",
   "scripts": {
     "test": "tsc; mocha dist/test",
     "getsprites": "tsc; node dist/generator/index.js",
