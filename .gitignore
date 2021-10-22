@@ -1,0 +1,5 @@
+node_modules/
+dist/generator/
+dist/test/
+generator/*.js
+generator/*.js.map

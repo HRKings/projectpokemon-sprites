@@ -1,0 +1,5 @@
+node_modules/
+test/
+generator/
+dist/test/
+dist/generator/
