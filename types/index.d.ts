@@ -19,6 +19,14 @@ declare module 'projectpokemon-sprites' {
     function loadGeneration(generation: number | string): Record<string, PokemonSprite>;
 
     /**
+     * A function to convert a PokeAPI pokemon name
+     * into one accepted by the Project Pokemon Sprite Index
+     * @param pokeApiPokemonName - the pokemon name as in the PokeAPI
+     * @returns the pokemon name accepted by the Project Pokemon Sprite Index
+     */
+    function fromPokeAPI(pokeApiPokemonName: string): string
+
+    /**
      * Get the Pokemon Sprite from Project Pokemon
      * @param pokeApiPokemonName - the pokemon name as in the PokeAPI
      * @param generation - the generation the pokemon belongs to,

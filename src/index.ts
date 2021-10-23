@@ -60,8 +60,14 @@ export function loadGeneration(generation: number | string): Record<string, Poke
   return data;
 }
 
-function fromPokeAPI(pokemonName: string): string {
-  let projectPokemonName = pokemonName;
+/**
+ * A function to convert a PokeAPI pokemon name
+ * into one accepted by the Project Pokemon Sprite Index
+ * @param pokeApiPokemonName - the pokemon name as in the PokeAPI
+ * @returns the pokemon name accepted by the Project Pokemon Sprite Index
+ */
+export function fromPokeAPI(pokeApiPokemonName: string): string {
+  let projectPokemonName = pokeApiPokemonName;
 
   for (const original in pokeApiReplaces) {
     projectPokemonName = projectPokemonName.replace(original, pokeApiReplaces[original]);
