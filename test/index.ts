@@ -1,112 +1,94 @@
 /* eslint-disable no-undef */
 
 import assert from 'assert';
-import { fromPokeAPI, getGeneration1, getGeneration8 } from '../src/index.js';
+import { fromPokeAPI, loadFromPokeAPI, loadGeneration } from '../src/index.js';
 
 console.log();
 
 describe('Dot Notation', () => {
-  describe('Return Pikachu front facing default sprite', () => {
-    it('Should return the url', () => {
-      assert.equal(getGeneration1().pikachu.front?.default, 'https://projectpokemon.org/images/normal-sprite/pikachu.gif');
+  describe('Load generation using the number', () => {
+    it('Should return the url of the Pikachu front facing default sprite', () => {
+      assert.equal(loadGeneration(1).pikachu.front?.default, 'https://projectpokemon.org/images/normal-sprite/pikachu.gif');
+    });
+
+    it('Should return the url of the Pikachu back facing default sprite', () => {
+      assert.equal(loadGeneration(1).pikachu.back?.default, 'https://projectpokemon.org/images/sprites-models/normal-back/pikachu.gif');
     });
   });
 
-  describe('Return Pikachu back facing default sprite', () => {
-    it('Should return the url', () => {
-      assert.equal(getGeneration1().pikachu.back?.default, 'https://projectpokemon.org/images/sprites-models/normal-back/pikachu.gif');
+  describe('Load generation using the PokeAPI generation', () => {
+    it('Should return the url of the Pikachu front facing shiny sprite', () => {
+      assert.equal(loadGeneration('generation-i').pikachu.front?.shiny, 'https://projectpokemon.org/images/shiny-sprite/pikachu.gif');
     });
-  });
 
-  describe('Return Pikachu front facing shiny sprite', () => {
-    it('Should return the url', () => {
-      assert.equal(getGeneration1().pikachu.front?.shiny, 'https://projectpokemon.org/images/shiny-sprite/pikachu.gif');
-    });
-  });
-
-  describe('Return Pikachu back facing shiny sprite', () => {
-    it('Should return the url', () => {
-      assert.equal(getGeneration1().pikachu.back?.shiny, 'https://projectpokemon.org/images/sprites-models/shiny-back/pikachu.gif');
+    it('Should return the url of the Pikachu back facing shiny sprite', () => {
+      assert.equal(loadGeneration('generation-i').pikachu.back?.shiny, 'https://projectpokemon.org/images/sprites-models/shiny-back/pikachu.gif');
     });
   });
 });
 
 /* eslint-disable dot-notation */
 describe('Index Notation', () => {
-  describe('Return Pikachu front facing default sprite', () => {
-    it('Should return the url', () => {
-      assert.equal(getGeneration1()['pikachu'].front?.default, 'https://projectpokemon.org/images/normal-sprite/pikachu.gif');
+  describe('Load generation using the number', () => {
+    it('Should return the url of the Pikachu front facing default sprite', () => {
+      assert.equal(loadGeneration(1)['pikachu'].front?.default, 'https://projectpokemon.org/images/normal-sprite/pikachu.gif');
+    });
+
+    it('Should return the url of the Pikachu back facing default sprite', () => {
+      assert.equal(loadGeneration(1)['pikachu'].back?.default, 'https://projectpokemon.org/images/sprites-models/normal-back/pikachu.gif');
     });
   });
 
-  describe('Return Pikachu back facing default sprite', () => {
-    it('Should return the url', () => {
-      assert.equal(getGeneration1()['pikachu'].back?.default, 'https://projectpokemon.org/images/sprites-models/normal-back/pikachu.gif');
+  describe('Load generation using the PokeAPI generation', () => {
+    it('Should return the url of the Pikachu front facing shiny sprite', () => {
+      assert.equal(loadGeneration('generation-i')['pikachu'].front?.shiny, 'https://projectpokemon.org/images/shiny-sprite/pikachu.gif');
     });
-  });
 
-  describe('Return Pikachu front facing shiny sprite', () => {
-    it('Should return the url', () => {
-      assert.equal(getGeneration1()['pikachu'].front?.shiny, 'https://projectpokemon.org/images/shiny-sprite/pikachu.gif');
-    });
-  });
-
-  describe('Return Pikachu back facing shiny sprite', () => {
-    it('Should return the url', () => {
-      assert.equal(getGeneration1()['pikachu'].back?.shiny, 'https://projectpokemon.org/images/sprites-models/shiny-back/pikachu.gif');
+    it('Should return the url of the Pikachu back facing shiny sprite', () => {
+      assert.equal(loadGeneration('generation-i')['pikachu'].back?.shiny, 'https://projectpokemon.org/images/sprites-models/shiny-back/pikachu.gif');
     });
   });
 });
 /* eslint-enable dot-notation */
 
 describe('PokeAPI Sanitization', () => {
-  describe('Return a "Pikachu  Rockstar" Project Pokemon valid name', () => {
-    it('Should return the sanitized name', () => {
+  describe('Convert the names coming from PokeAPI', () => {
+    it('Should return the Project Pokemon valid name of the "Pikachu  Rockstar"', () => {
       assert.equal(fromPokeAPI('pikachu-rock-star'), 'pikachu-rockstar');
     });
-  });
 
-  describe('Return a "Pikachu Kanto Cap" Project Pokemon valid name', () => {
-    it('Should return the sanitized name', () => {
+    it('Should return the Project Pokemon valid name of the "Pikachu Kanto Cap"', () => {
       assert.equal(fromPokeAPI('pikachu-original-cap'), 'pikachu-kantocap');
     });
-  });
 
-  describe('Return a "Pikachu Hoenn Cap" Project Pokemon valid name', () => {
-    it('Should return the sanitized name', () => {
+    it('Should return the Project Pokemon valid name of the "Pikachu Hoenn Cap"', () => {
       assert.equal(fromPokeAPI('pikachu-hoenn-cap'), 'pikachu-hoenncap');
     });
-  });
 
-  describe('Return a "Gigantamax Pikachu" Project Pokemon valid name', () => {
-    it('Should return the sanitized name', () => {
+    it('Should return the Project Pokemon valid name of the "Gigantamax Pikachu"', () => {
       assert.equal(fromPokeAPI('pikachu-gmax'), 'pikachu-gigantamax');
     });
-  });
 
-  describe('Return a "Totem Alolan Raticate" Project Pokemon valid name', () => {
-    it('Should return the sanitized name', () => {
+    it('Should return the Project Pokemon valid name of the "Totem Alolan Raticate"', () => {
       assert.equal(fromPokeAPI('raticate-totem-alola'), 'raticate-totem');
     });
   });
 
-  describe('Return "Pikachu  Rockstar" front facing shiny sprite', () => {
-    it('Should return the url', () => {
-      assert.equal(getGeneration1()[fromPokeAPI('pikachu-rock-star')].front?.shiny,
+  describe('Load from PokeAPI number generation', () => {
+    it('Should return the url of the "Pikachu  Rockstar" front facing shiny sprite', () => {
+      assert.equal(loadFromPokeAPI('pikachu-rock-star', 1).front?.shiny,
         'https://projectpokemon.org/images/shiny-sprite/pikachu-rockstar.gif');
     });
-  });
 
-  describe('Return "Gigantamax Pikachu" front facing shiny sprite', () => {
-    it('Should return the url', () => {
-      assert.equal(getGeneration8()[fromPokeAPI('pikachu-gmax')].front?.shiny,
+    it('Should return the url of the "Gigantamax Pikachu" front facing shiny sprite', () => {
+      assert.equal(loadFromPokeAPI('pikachu-gmax', 8).front?.shiny,
         'https://projectpokemon.org/images/sprites-models/swsh-shiny-sprites/pikachu-gigantamax.gif');
     });
   });
 
-  describe('Return "Totem Alolan Raticate" front facing shiny sprite', () => {
-    it('Should return the url', () => {
-      assert.equal(getGeneration1()[fromPokeAPI('raticate-totem-alola')].front?.shiny,
+  describe('Load from PokeAPI string generation', () => {
+    it('Should return the url of the "Totem Alolan Raticate" front facing shiny sprite', () => {
+      assert.equal(loadFromPokeAPI('raticate-totem-alola', 'generation-i').front?.shiny,
         'https://projectpokemon.org/images/shiny-sprite/raticate-totem.gif');
     });
   });
