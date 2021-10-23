@@ -29,6 +29,10 @@ const generationsNames = {
     'generation-vii': 'gen7',
     'generation-viii': 'gen8',
 };
+const generationCache = {
+    file: '',
+    data: {},
+};
 /**
  * Loads a Generation file into memory
  * @param generation - the generation that will be loaded
@@ -50,6 +54,24 @@ export function loadGeneration(generation) {
         return { ...data, ...lgpe };
     }
     return data;
+}
+export function getPokemonSprite(pokemonName, generation) {
+    let generationFile = '';
+    if (typeof generation === 'number') {
+        generationFile = generations[generation];
+    }
+    else {
+        generationFile = generationsNames[generation];
+    }
+    if (generationCache.file !== generationFile) {
+        generationCache.file = generationFile;
+        generationCache.data = loadGeneration(generation);
+    }
+    const pokemonSprite = generationCache.data[pokemonName];
+    if (!pokemonSprite) {
+        throw new Error(`The pokemon '${pokemonName}' isn't in the Generation '${generation}'`);
+    }
+    return pokemonSprite;
 }
 /**
  * A function to convert a PokeAPI pokemon name
@@ -73,5 +95,5 @@ export function fromPokeAPI(pokeApiPokemonName) {
  */
 export function loadFromPokeAPI(pokeApiPokemonName, generation) {
     const projectPokemonName = fromPokeAPI(pokeApiPokemonName);
-    return loadGeneration(generation)[projectPokemonName];
+    return getPokemonSprite(projectPokemonName, generation);
 }

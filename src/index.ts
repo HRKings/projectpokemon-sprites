@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { __dirname } from './utils.js';
-import { PokemonSprite } from '@/interfaces/IPokemonSprite';
+import { PokemonSprite } from './interfaces/IPokemonSprite.js';
+import { PokemonGeneration } from './interfaces/IPokemonGeneration.js';
 
 const generationsFiles = path.join(__dirname, 'data/generations/');
 const pokeApiReplaces: Record<string, string> = {
@@ -34,6 +35,23 @@ const generationsNames: Record<string, string> = {
   'generation-viii': 'gen8',
 };
 
+const generationCache: PokemonGeneration = {
+  file: '',
+  data: {},
+};
+
+function getGenerationFile(generation: number | string): string {
+  let generationFile = '';
+
+  if (typeof generation === 'number') {
+    generationFile = generations[generation];
+  } else {
+    generationFile = generationsNames[generation];
+  }
+
+  return generationFile;
+}
+
 /**
  * Loads a Generation file into memory
  * @param generation - the generation that will be loaded
@@ -41,16 +59,12 @@ const generationsNames: Record<string, string> = {
  * @returns the list of all pokemon sprites for this generation
 */
 export function loadGeneration(generation: number | string): Record<string, PokemonSprite> {
-  let rawData = '';
-  if (typeof generation === 'number') {
-    rawData = fs.readFileSync(`${generationsFiles}${generations[generation]}.json`).toString();
-  } else {
-    rawData = fs.readFileSync(`${generationsFiles}${generationsNames[generation]}.json`).toString();
-  }
+  const generationFile = getGenerationFile(generation);
 
+  const rawData = fs.readFileSync(`${generationsFiles}${generationFile}.json`).toString();
   const data: Record<string, PokemonSprite> = JSON.parse(rawData);
 
-  if (generation !== 8) {
+  if (generationFile === 'gen8') {
     const rawLgpe = fs.readFileSync(`${generationsFiles}lgpe.json`).toString();
     const lgpe = JSON.parse(rawLgpe);
 
@@ -58,6 +72,30 @@ export function loadGeneration(generation: number | string): Record<string, Poke
   }
 
   return data;
+}
+
+/**
+ * Get the Pokemon Sprite from Project Pokemon
+ * @param pokemonName - the pokemon name
+ * @param generation - the generation the pokemon belongs to
+ * (must be a number between 1 and 8 or a string with a PokeAPI generation)
+ * @returns a Pokemon Sprite
+ */
+export function getPokemonSprite(pokemonName: string, generation: number | string): PokemonSprite {
+  const generationFile = getGenerationFile(generation);
+
+  if (generationCache.file !== generationFile) {
+    generationCache.file = generationFile;
+    generationCache.data = loadGeneration(generation);
+  }
+
+  const pokemonSprite = generationCache.data[pokemonName];
+
+  if (!pokemonSprite) {
+    throw new Error(`The pokemon '${pokemonName}' isn't in the Generation '${generation}'`);
+  }
+
+  return pokemonSprite;
 }
 
 /**
@@ -87,5 +125,5 @@ export function loadFromPokeAPI(pokeApiPokemonName: string,
   generation: number | string): PokemonSprite {
   const projectPokemonName = fromPokeAPI(pokeApiPokemonName);
 
-  return loadGeneration(generation)[projectPokemonName];
+  return getPokemonSprite(projectPokemonName, generation);
 }
