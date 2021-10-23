@@ -2,12 +2,10 @@ declare module 'projectpokemon-sprites' {
     interface PokemonSpriteKind {
         default?: string;
         shiny?: string;
-        [index: string]: string | undefined;
     }
     interface PokemonSprite {
         front?: PokemonSpriteKind;
         back?: PokemonSpriteKind;
-        [index: string]: PokemonSpriteKind | undefined;
     }
 
     interface PokemonGeneration {
