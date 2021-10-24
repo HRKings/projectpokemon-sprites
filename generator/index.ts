@@ -6,7 +6,7 @@
 import cheerio from 'cheerio';
 import axios from 'axios';
 import fs from 'fs';
-import { PokemonSprite } from '@/interfaces/IPokemonSprite';
+import { PokemonSprite } from '../src/interfaces/IPokemonSprite.js';
 
 const projectPokemonPages: Record<string, string> = {
   gen1: 'https://projectpokemon.org/home/docs/spriteindex_148/3d-models-generation-1-pok%C3%A9mon-r90/',
@@ -45,7 +45,7 @@ for (const key in projectPokemonPages) {
   $('table > tbody > tr > td > img').each((_, el) => {
     const { src } = el.attribs;
     const pathSplit = src.split('/').reverse();
-    let pokemonName = pathSplit[0].replace('.gif', '');
+    let pokemonName = pathSplit[0].replace('.gif', '').replace('mr._', 'mr.');
 
     if (src.includes('lgswitch')) {
       pokemonName = pokemonName.replace('-shiny', '');

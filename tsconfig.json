@@ -8,12 +8,6 @@
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
-		"baseUrl": "./",
-		"paths": {
-			"@/*": [
-				"src/*"
-			]
-		},
 		"lib": [
 			"esnext",
 			"dom"
@@ -23,6 +17,7 @@
 	"include": [
 		"src/**/*.ts",
 		"generator/**/*.ts",
+		"pokeapi/**/*.ts",
 		"test/**/*.ts"
 	],
 	"exclude": [

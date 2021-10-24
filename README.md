@@ -34,7 +34,7 @@ PokeAPI support is also included out of the box, so you can pass the pokemon and
 ```js
 import { loadFromPokeAPI } from 'projectpokemon-sprites';
 
-const pikachu = loadFromPokeAPI(pokeApiPokemonResponse.name, pokeApiGenerationResponse.name); // Example pokeApi usage
+const pikachu = getPokemonSprite(pokeApiPokemonResponse.id, pokeApiGenerationResponse.name); // Example pokeApi usage
 ```
 
 # Developing

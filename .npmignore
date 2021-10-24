@@ -3,3 +3,4 @@ test/
 generator/
 dist/test/
 dist/generator/
+dist/pokeapi/

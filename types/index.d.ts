@@ -1,49 +1,32 @@
 declare module 'projectpokemon-sprites' {
-    interface PokemonSpriteKind {
-        default?: string;
-        shiny?: string;
-    }
-    interface PokemonSprite {
-        front?: PokemonSpriteKind;
-        back?: PokemonSpriteKind;
-    }
+  interface PokemonSpriteKind {
+    default?: string;
+    shiny?: string;
+  }
+  interface PokemonSprite {
+    front?: PokemonSpriteKind;
+    back?: PokemonSpriteKind;
+  }
 
-    interface PokemonGeneration {
-      file: string,
-      data: Record<string, PokemonSprite>
-    }
+  interface PokemonGeneration {
+    file: string,
+    data: Record<string, PokemonSprite>
+  }
 
-    /**
-     * Loads a Generation file into memory
-     * @param generation - the generation that will be loaded
-     * (must be a number between 1 and 8 or a string with a PokeAPI generation)
-     * @returns the list of all pokemon sprites for this generation
-    */
-    function loadGeneration(generation: number | string): Record<string, PokemonSprite>;
+  /**
+   * Loads a Generation file into memory
+   * @param generation - the generation that will be loaded
+   * (must be a number between 1 and 8 or a string with a PokeAPI generation)
+   * @returns the list of all pokemon sprites for this generation
+  */
+  function loadGeneration(generation: number | string): Record<string, PokemonSprite>;
 
-    /**
-     * Get the Pokemon Sprite from Project Pokemon
-     * @param pokemonName - the pokemon name
-     * @param generation - the generation the pokemon belongs to
-     * (must be a number between 1 and 8 or a string with a PokeAPI generation)
-     * @returns a Pokemon Sprite
-     */
-    function getPokemonSprite(pokemonName: string, generation: number | string): PokemonSprite;
-
-    /**
-     * A function to convert a PokeAPI pokemon name
-     * into one accepted by the Project Pokemon Sprite Index
-     * @param pokeApiPokemonName - the pokemon name as in the PokeAPI
-     * @returns the pokemon name accepted by the Project Pokemon Sprite Index
-     */
-    function fromPokeAPI(pokeApiPokemonName: string): string
-
-    /**
-     * Get the Pokemon Sprite from Project Pokemon
-     * @param pokeApiPokemonName - the pokemon name as in the PokeAPI
-     * @param generation - the generation the pokemon belongs to,
-     *  can be a generation string from PokeAPI
-     * @returns a Pokemon Sprite
-     */
-    function loadFromPokeAPI(pokeApiPokemonName: string, generation: number | string): PokemonSprite;
+  /**
+  * Get the Pokemon Sprite from Project Pokemon
+  * @param pokemonNameOrPokeApiId - the pokemon name or a PokeAPI ID
+  * @param generation - the generation the pokemon belongs to
+  * (must be a number between 1 and 8 or a string with a PokeAPI generation)
+  * @returns a Pokemon Sprite
+  */
+  function getPokemonSprite(pokemonNameOrPokeApiId: string | number, generation: number | string): PokemonSprite;
 }

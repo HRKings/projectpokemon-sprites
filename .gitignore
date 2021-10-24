@@ -1,4 +1,6 @@
 node_modules/
 dist/test/
 dist/generator/
-generator/*.js
+dist/generator/*.js
+dist/pokeapi/
+dist/pokeapi/*.js
